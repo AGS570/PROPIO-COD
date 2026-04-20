@@ -1,6 +1,13 @@
 package Negocio;
 
-import Presentacion.*;
+import Presentacion.EventosCampo;
+import Presentacion.GUIRespuestaActualizarCampo;
+import Presentacion.GUIRespuestaCreaCampoExterior;
+import Presentacion.GUIRespuestaCreaCampoInterior;
+import Presentacion.GUIRespuestaEliminarCampo;
+import Presentacion.GUIRespuestaMostrarCampo;
+import Presentacion.GUIRespuestaMostrarTodos;
+
 import java.util.Collection;
 
 public class Controlador {
@@ -18,36 +25,27 @@ public class Controlador {
 
         if (evento == EventosCampo.CREAR_CAMPO) {
             int res = sa.create((TCampo) datos);
-            new GUIRespuestaCreaCampo(res);
-        } 
+            if (datos instanceof TCampoExterior) {
+                new GUIRespuestaCreaCampoExterior(res);
+            } else {
+                new GUIRespuestaCreaCampoInterior(res);
+            }
+        }
         else if (evento == EventosCampo.ELIMINAR_CAMPO) {
             int res = sa.delete((String) datos);
             new GUIRespuestaEliminarCampo(res);
         }
         else if (evento == EventosCampo.ACTUALIZAR_CAMPO) {
             int res = sa.update((TCampo) datos);
-            if (res == EventosCampo.ACTUALIZAR_OK) {
-                new GUIRespuestaActualizarCampo(true);
-            } else {
-                new GUIRespuestaActualizarCampo(false);
-            }
+            new GUIRespuestaActualizarCampo(res == EventosCampo.ACTUALIZAR_OK);
         }
         else if (evento == EventosCampo.MOSTRAR_CAMPO) {
             TCampo t = sa.read((String) datos);
-            if (t != null) {
-                // Abrir la ventana de detalle correcta según el subtipo
-                if (t instanceof TCampoExterior) {
-                    new GUIMostrarCampoExterior((TCampoExterior) t).setVisible(true);
-                } else {
-                    new GUIMostrarCampoInterior((TCampoInterior) t).setVisible(true);
-                }
-            } else {
-                new GUIRespuestaGenerica("No se encontró el campo");
-            }
+            new GUIRespuestaMostrarCampo(t);
         }
         else if (evento == EventosCampo.MOSTRAR_TODOS) {
             Collection<TCampo> lista = sa.readAll();
-            // Lógica para actualizar la tabla en la GUI
+            new GUIRespuestaMostrarTodos(lista);
         }
     }
 }
