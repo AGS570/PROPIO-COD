@@ -1,4 +1,4 @@
-package Integracion;
+package Integracion.Campos;
 
 class FactoriaDAOImp extends FactoriaDAO {
  @Override

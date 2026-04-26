@@ -1,9 +1,9 @@
-package Presentacion;
+package Presentacion.Campos;
 
 import javax.swing.*;
 import java.awt.*;
-import Negocio.Controlador;
-import Negocio.TCampoExterior;
+import Negocio.Campos.Controlador;
+import Negocio.Campos.TCampoExterior;
 
 public class GUICrearCampoExterior extends JFrame {
     private JTextField txtID, txtSuperficie, txtClima;

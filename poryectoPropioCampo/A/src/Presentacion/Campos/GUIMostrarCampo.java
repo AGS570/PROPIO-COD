@@ -1,12 +1,12 @@
-package Presentacion;
+package Presentacion.Campos;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import Negocio.TCampo;
-import Negocio.TCampoExterior;
-import Negocio.TCampoInterior;
+import Negocio.Campos.TCampo;
+import Negocio.Campos.TCampoExterior;
+import Negocio.Campos.TCampoInterior;
 
 public class GUIMostrarCampo extends JFrame {
 

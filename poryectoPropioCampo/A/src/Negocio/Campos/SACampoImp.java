@@ -1,9 +1,9 @@
-package Negocio;
+package Negocio.Campos;
 
 import java.util.Collection;
-import Integracion.DAOCampo;
-import Integracion.FactoriaDAO;
-import Presentacion.EventosCampo;
+import Integracion.Campos.DAOCampo;
+import Integracion.Campos.FactoriaDAO;
+import Presentacion.Campos.EventosCampo;
 
 public class SACampoImp implements SACampo {
 

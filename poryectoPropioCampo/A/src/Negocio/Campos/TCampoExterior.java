@@ -1,4 +1,4 @@
-package Negocio;
+package Negocio.Campos;
 
 public class TCampoExterior extends TCampo {
     private String clima;

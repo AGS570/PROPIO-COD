@@ -1,13 +1,13 @@
-package Negocio;
+package Negocio.Campos;
 
-import Presentacion.EventosCampo;
-import Presentacion.GUIRespuestaActualizarCampo;
-import Presentacion.GUIRespuestaCreaCampoExterior;
-import Presentacion.GUIRespuestaCreaCampoInterior;
-import Presentacion.GUIRespuestaEliminarCampo;
-import Presentacion.GUIRespuestaMostrarCampo;
-import Presentacion.GUIRespuestaMostrarCamposMantenimiento;
-import Presentacion.GUIRespuestaMostrarTodos;
+import Presentacion.Campos.EventosCampo;
+import Presentacion.Campos.GUIRespuestaActualizarCampo;
+import Presentacion.Campos.GUIRespuestaCreaCampoExterior;
+import Presentacion.Campos.GUIRespuestaCreaCampoInterior;
+import Presentacion.Campos.GUIRespuestaEliminarCampo;
+import Presentacion.Campos.GUIRespuestaMostrarCampo;
+import Presentacion.Campos.GUIRespuestaMostrarCamposMantenimiento;
+import Presentacion.Campos.GUIRespuestaMostrarTodos;
 
 import java.util.Collection;
 

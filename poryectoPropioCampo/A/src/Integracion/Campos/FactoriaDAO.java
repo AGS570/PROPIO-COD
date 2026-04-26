@@ -1,4 +1,4 @@
-package Integracion;
+package Integracion.Campos;
 
 public abstract class FactoriaDAO {
     private static FactoriaDAO instance;

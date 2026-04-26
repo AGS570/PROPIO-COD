@@ -1,25 +1,26 @@
-package Presentacion;
+package Presentacion.Campos;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.Collection;
-import Negocio.TCampo;
+import Negocio.Campos.TCampo;
 
-public class GUIMostrarCamposMantenimiento extends JFrame {
-
-    public GUIMostrarCamposMantenimiento(Collection<TCampo> lista) {
-        super("Campos en Mantenimiento");
+public class GUIMostrarTodos extends JFrame {
+    
+    public GUIMostrarTodos(Collection<TCampo> lista) {
+        super("Lista de Todos los Campos");
         initGUI(lista);
     }
 
     private void initGUI(Collection<TCampo> lista) {
-        String[] columnas = {"ID", "Superficie", "Mantenimiento"};
+        String[] columnas = {"ID", "Superficie", "Estado"};
         DefaultTableModel modelo = new DefaultTableModel(columnas, 0);
         JTable tabla = new JTable(modelo);
 
         for (TCampo t : lista) {
-            modelo.addRow(new Object[]{ t.getID(), t.getTipoSuperficie(), "SI" });
+            Object[] fila = { t.getID(), t.getTipoSuperficie(), t.getOcupado() ? "Ocupado" : "Libre" };
+            modelo.addRow(fila);
         }
 
         this.setLayout(new BorderLayout());

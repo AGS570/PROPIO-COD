@@ -1,8 +1,8 @@
-package Presentacion;
+package Presentacion.Campos;
 
 import javax.swing.JOptionPane;
 import java.util.Collection;
-import Negocio.TCampo;
+import Negocio.Campos.TCampo;
 
 public class GUIRespuestaMostrarTodos {
     public GUIRespuestaMostrarTodos(Collection<TCampo> lista) {

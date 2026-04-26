@@ -1,4 +1,4 @@
-package Negocio;
+package Negocio.Campos;
 public class FactoriaSAImp extends FactoriaSA {
     @Override
     public SACampo getSACampo() {

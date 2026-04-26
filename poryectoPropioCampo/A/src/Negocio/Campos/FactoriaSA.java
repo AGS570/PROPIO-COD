@@ -1,4 +1,4 @@
-package Negocio;
+package Negocio.Campos;
 
 public abstract class FactoriaSA {
     private static FactoriaSA instance;

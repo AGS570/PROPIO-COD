@@ -1,4 +1,4 @@
-package Presentacion;
+package Presentacion.Campos;
 
 public class EventosCampo {
     // Eventos de petición
