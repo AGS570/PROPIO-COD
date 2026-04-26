@@ -37,7 +37,7 @@ public class Controlador {
         }
         else if (evento == EventosCampo.ACTUALIZAR_CAMPO) {
             int res = sa.update((TCampo) datos);
-            new GUIRespuestaActualizarCampo(res == EventosCampo.ACTUALIZAR_OK);
+            new GUIRespuestaActualizarCampo(res);
         }
         else if (evento == EventosCampo.MOSTRAR_CAMPO) {
             TCampo t = sa.read((String) datos);
