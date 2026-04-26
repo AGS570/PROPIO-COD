@@ -4,7 +4,7 @@ import javax.swing.JOptionPane;
 
 public class GUIRespuestaCreaCampoExterior {
     public GUIRespuestaCreaCampoExterior(int resultado) {
-        if (resultado == EventosCampo.CREAR_OK) {
+        if (resultado == EventosCampo.CREAR_CAMPO_OK) {
             JOptionPane.showMessageDialog(
                 null,
                 "Campo exterior dado de alta correctamente",
