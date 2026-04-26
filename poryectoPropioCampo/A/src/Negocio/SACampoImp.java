@@ -18,7 +18,7 @@ public class SACampoImp implements SACampo {
         
         if (existente == null) {
             int resultado = dao.create(tCampo);
-            if (resultado >= 0) {
+            if (resultado == 1) {
                 return EventosCampo.CREAR_OK;
             } else {
                 return EventosCampo.CREAR_KO;
@@ -54,7 +54,7 @@ public class SACampoImp implements SACampo {
         
         if (existente != null) {
             int resultado = dao.update(tCampo);
-            if (resultado >= 0) {
+            if (resultado == 1) {
                 return EventosCampo.ACTUALIZAR_OK;
             } else {
                 return EventosCampo.ACTUALIZAR_KO;
@@ -75,7 +75,7 @@ public class SACampoImp implements SACampo {
         
         if (existente != null) {
             int resultado = dao.delete(id);
-            if (resultado >= 0) {
+            if (resultado == 1) {
                 return EventosCampo.ELIMINAR_OK;
             } else {
                 return EventosCampo.ELIMINAR_KO;
