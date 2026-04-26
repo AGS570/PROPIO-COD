@@ -6,6 +6,7 @@ import Presentacion.GUIRespuestaCreaCampoExterior;
 import Presentacion.GUIRespuestaCreaCampoInterior;
 import Presentacion.GUIRespuestaEliminarCampo;
 import Presentacion.GUIRespuestaMostrarCampo;
+import Presentacion.GUIRespuestaMostrarCamposMantenimiento;
 import Presentacion.GUIRespuestaMostrarTodos;
 
 import java.util.Collection;
@@ -37,15 +38,19 @@ public class Controlador {
         }
         else if (evento == EventosCampo.ACTUALIZAR_CAMPO) {
             int res = sa.update((TCampo) datos);
-            new GUIRespuestaActualizarCampo(res == EventosCampo.ACTUALIZAR_OK);
+            new GUIRespuestaActualizarCampo(res);
         }
         else if (evento == EventosCampo.MOSTRAR_CAMPO) {
             TCampo t = sa.read((String) datos);
             new GUIRespuestaMostrarCampo(t);
         }
-        else if (evento == EventosCampo.MOSTRAR_TODOS) {
+        else if (evento == EventosCampo.MOSTRAR_CAMPOS || evento == EventosCampo.MOSTRAR_TODOS) {
             Collection<TCampo> lista = sa.readAll();
             new GUIRespuestaMostrarTodos(lista);
+        }
+        else if (evento == EventosCampo.MOSTRAR_CAMPOS_MANTENIMIENTO) {
+            Collection<TCampo> lista = ((SACampoImp) sa).readCamposMantenimiento();
+            new GUIRespuestaMostrarCamposMantenimiento(lista);
         }
     }
 }

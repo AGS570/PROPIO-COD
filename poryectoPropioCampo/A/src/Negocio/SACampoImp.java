@@ -10,7 +10,7 @@ public class SACampoImp implements SACampo {
     @Override
     public int create(TCampo tCampo) {
         if (tCampo == null || tCampo.getID() == null || tCampo.getID().isEmpty()) {
-            return EventosCampo.CREAR_KO;
+            return EventosCampo.CREAR_CAMPO_KO;
         }
 
         DAOCampo dao = FactoriaDAO.getInstance().getDAOCampo();
@@ -18,13 +18,13 @@ public class SACampoImp implements SACampo {
         
         if (existente == null) {
             int resultado = dao.create(tCampo);
-            if (resultado >= 0) {
-                return EventosCampo.CREAR_OK;
+            if (resultado == 1) {
+                return EventosCampo.CREAR_CAMPO_OK;
             } else {
-                return EventosCampo.CREAR_KO;
+                return EventosCampo.CREAR_CAMPO_KO;
             }
         } else {
-            return EventosCampo.CREAR_KO;
+            return EventosCampo.CREAR_CAMPO_KO;
         }
     }
 
@@ -46,7 +46,7 @@ public class SACampoImp implements SACampo {
     @Override
     public int update(TCampo tCampo) {
         if (tCampo == null || tCampo.getID() == null) {
-            return EventosCampo.ACTUALIZAR_KO;
+            return EventosCampo.ACTUALIZAR_CAMPO_KO;
         }
 
         DAOCampo dao = FactoriaDAO.getInstance().getDAOCampo();
@@ -54,20 +54,20 @@ public class SACampoImp implements SACampo {
         
         if (existente != null) {
             int resultado = dao.update(tCampo);
-            if (resultado >= 0) {
-                return EventosCampo.ACTUALIZAR_OK;
+            if (resultado == 1) {
+                return EventosCampo.ACTUALIZAR_CAMPO_OK;
             } else {
-                return EventosCampo.ACTUALIZAR_KO;
+                return EventosCampo.ACTUALIZAR_CAMPO_KO;
             }
         } else {
-            return EventosCampo.ACTUALIZAR_KO;
+            return EventosCampo.ACTUALIZAR_CAMPO_KO;
         }
     }
 
     @Override
     public int delete(String id) {
         if (id == null || id.isEmpty()) {
-            return EventosCampo.ELIMINAR_KO;
+            return EventosCampo.ELIMINAR_CAMPO_KO;
         }
 
         DAOCampo dao = FactoriaDAO.getInstance().getDAOCampo();
@@ -75,13 +75,13 @@ public class SACampoImp implements SACampo {
         
         if (existente != null) {
             int resultado = dao.delete(id);
-            if (resultado >= 0) {
-                return EventosCampo.ELIMINAR_OK;
+            if (resultado == 1) {
+                return EventosCampo.ELIMINAR_CAMPO_OK;
             } else {
-                return EventosCampo.ELIMINAR_KO;
+                return EventosCampo.ELIMINAR_CAMPO_KO;
             }
         } else {
-            return EventosCampo.ELIMINAR_KO;
+            return EventosCampo.ELIMINAR_CAMPO_KO;
         }
     }
 

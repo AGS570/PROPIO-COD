@@ -5,7 +5,7 @@ import javax.swing.JOptionPane;
 public class GUIRespuestaEliminarCampo {
     
     public GUIRespuestaEliminarCampo(int resultado) {
-        if (resultado == EventosCampo.ELIMINAR_OK) {
+        if (resultado == EventosCampo.ELIMINAR_CAMPO_OK) {
             JOptionPane.showMessageDialog(null, "El campo ha sido eliminado correctamente.", 
                                         "Baja confirmada", JOptionPane.INFORMATION_MESSAGE);
         } else {
