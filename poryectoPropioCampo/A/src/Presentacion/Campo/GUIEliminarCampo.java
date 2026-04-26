@@ -1,8 +1,10 @@
-package Presentacion;
+package Presentacion.Campo;
 
 import javax.swing.*;
+
+import Negocio.controlador.Controlador;
+
 import java.awt.*;
-import Negocio.Controlador;
 
 public class GUIEliminarCampo extends JFrame {
 

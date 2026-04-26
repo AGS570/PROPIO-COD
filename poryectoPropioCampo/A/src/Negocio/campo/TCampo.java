@@ -1,4 +1,4 @@
-package Negocio;
+package Negocio.campo;
 
 public class TCampo {
     private String ID;

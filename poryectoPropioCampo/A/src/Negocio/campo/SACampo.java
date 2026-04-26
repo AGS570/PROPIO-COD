@@ -1,4 +1,4 @@
-package Negocio;
+package Negocio.campo;
 
 import java.util.Collection;
 

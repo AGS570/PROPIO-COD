@@ -1,7 +1,8 @@
-package Presentacion;
+package Presentacion.Campo;
 
 import javax.swing.JOptionPane;
-import Negocio.TCampo;
+
+import Negocio.campo.TCampo;
 
 public class GUIRespuestaMostrarCampo {
     public GUIRespuestaMostrarCampo(TCampo t) {

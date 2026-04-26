@@ -1,4 +1,4 @@
-package Integracion;
+package Integracion.campo;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,9 +7,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import Negocio.TCampo;
-import Negocio.TCampoExterior;
-import Negocio.TCampoInterior;
+import Negocio.campo.TCampo;
+import Negocio.campo.TCampoExterior;
+import Negocio.campo.TCampoInterior;
 
 public class DAOCampoImp implements DAOCampo {
 

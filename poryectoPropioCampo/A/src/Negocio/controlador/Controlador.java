@@ -1,15 +1,20 @@
-package Negocio;
-
-import Presentacion.EventosCampo;
-import Presentacion.GUIRespuestaActualizarCampo;
-import Presentacion.GUIRespuestaCreaCampoExterior;
-import Presentacion.GUIRespuestaCreaCampoInterior;
-import Presentacion.GUIRespuestaEliminarCampo;
-import Presentacion.GUIRespuestaMostrarCampo;
-import Presentacion.GUIRespuestaMostrarCamposMantenimiento;
-import Presentacion.GUIRespuestaMostrarTodos;
+package Negocio.controlador;
 
 import java.util.Collection;
+
+import Negocio.Factoria.FactoriaSA;
+import Negocio.campo.SACampo;
+import Negocio.campo.SACampoImp;
+import Negocio.campo.TCampo;
+import Negocio.campo.TCampoExterior;
+import Presentacion.Campo.EventosCampo;
+import Presentacion.Campo.GUIRespuestaActualizarCampo;
+import Presentacion.Campo.GUIRespuestaCreaCampoExterior;
+import Presentacion.Campo.GUIRespuestaCreaCampoInterior;
+import Presentacion.Campo.GUIRespuestaEliminarCampo;
+import Presentacion.Campo.GUIRespuestaMostrarCampo;
+import Presentacion.Campo.GUIRespuestaMostrarCamposMantenimiento;
+import Presentacion.Campo.GUIRespuestaMostrarTodos;
 
 public class Controlador {
     private static Controlador instance;

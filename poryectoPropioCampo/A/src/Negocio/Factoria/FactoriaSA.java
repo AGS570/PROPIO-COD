@@ -1,4 +1,6 @@
-package Negocio;
+package Negocio.Factoria;
+
+import Negocio.campo.SACampo;
 
 public abstract class FactoriaSA {
     private static FactoriaSA instance;

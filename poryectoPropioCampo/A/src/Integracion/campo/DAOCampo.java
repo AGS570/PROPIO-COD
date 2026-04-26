@@ -1,7 +1,8 @@
-package Integracion;
+package Integracion.campo;
 
 import java.util.Collection;
-import Negocio.TCampo;
+
+import Negocio.campo.TCampo;
 
 public interface DAOCampo {
     public int create(TCampo tCampo);

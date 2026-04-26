@@ -1,4 +1,6 @@
-package Integracion;
+package Integracion.Factoria;
+
+import Integracion.campo.DAOCampo;
 
 public abstract class FactoriaDAO {
     private static FactoriaDAO instance;

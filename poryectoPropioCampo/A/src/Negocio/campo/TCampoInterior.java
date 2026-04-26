@@ -1,4 +1,4 @@
-package Negocio;
+package Negocio.campo;
 
 public class TCampoInterior extends TCampo {
     private boolean acondicionado;

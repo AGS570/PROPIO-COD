@@ -1,10 +1,12 @@
-package Presentacion;
+package Presentacion.Campo;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+
+import Negocio.campo.TCampo;
+
 import java.awt.*;
 import java.util.Collection;
-import Negocio.TCampo;
 
 public class GUIMostrarCamposMantenimiento extends JFrame {
 
