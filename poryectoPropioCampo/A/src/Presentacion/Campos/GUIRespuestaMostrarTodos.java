@@ -1,17 +1,19 @@
 package Presentacion.Campos;
 
-import javax.swing.JOptionPane;
 import java.util.Collection;
+
+import javax.swing.JOptionPane;
+
 import Negocio.Campos.TCampo;
 
 public class GUIRespuestaMostrarTodos {
-    public GUIRespuestaMostrarTodos(Collection<TCampo> lista) {
-        if (lista != null && !lista.isEmpty()) {
-            // Si hay datos, abrimos la tabla
+    public GUIRespuestaMostrarTodos(int evento, Object datos) {
+        if (evento == EventosCampo.MOSTRAR_CAMPOS_OK) {
+            @SuppressWarnings("unchecked")
+            Collection<TCampo> lista = (Collection<TCampo>) datos;
             new GUIMostrarTodos(lista).setVisible(true);
         } else {
-            JOptionPane.showMessageDialog(null, "No hay campos registrados en el sistema", 
-                                        "Información", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "No hay campos registrados en el sistema", "Información", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 }

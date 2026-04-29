@@ -47,15 +47,20 @@ public class Controlador {
         }
         else if (evento == EventosCampo.MOSTRAR_CAMPO) {
             TCampo t = sa.read((String) datos);
-            new GUIRespuestaMostrarCampo(t);
+            int eventoRespuesta = (t != null) ? EventosCampo.MOSTRAR_CAMPO_OK : EventosCampo.MOSTRAR_CAMPO_KO;
+            new GUIRespuestaMostrarCampo(eventoRespuesta, t);
         }
         else if (evento == EventosCampo.MOSTRAR_CAMPOS || evento == EventosCampo.MOSTRAR_TODOS) {
             Collection<TCampo> lista = sa.readAll();
-            new GUIRespuestaMostrarTodos(lista);
+            int eventoRespuesta = (lista != null && !lista.isEmpty()) ? EventosCampo.MOSTRAR_CAMPOS_OK : EventosCampo.MOSTRAR_CAMPOS_KO;
+            new GUIRespuestaMostrarTodos(eventoRespuesta, lista);
         }
         else if (evento == EventosCampo.MOSTRAR_CAMPOS_MANTENIMIENTO) {
             Collection<TCampo> lista = ((SACampoImp) sa).readCamposMantenimiento();
-            new GUIRespuestaMostrarCamposMantenimiento(lista);
+            int eventoRespuesta = (lista != null && !lista.isEmpty())
+                ? EventosCampo.MOSTRAR_CAMPOS_MANTENIMIENTO_OK
+                : EventosCampo.MOSTRAR_CAMPOS_MANTENIMIENTO_KO;
+            new GUIRespuestaMostrarCamposMantenimiento(eventoRespuesta, lista);
         }
     }
 }
