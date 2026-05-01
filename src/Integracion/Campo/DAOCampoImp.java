@@ -35,7 +35,7 @@ public class DAOCampoImp implements DAOCampo {
         int idCampo = parseId(tCampo.getID());
         if (idCampo < 0) return -1;
 
-        String sqlCampo = "INSERT INTO Campo (id_campo, ocupado, tipo_superficie) VALUES (?, ?, ?)";
+        String sqlCampo = "INSERT INTO Campo (id_campo, ocupado, tipo_superficie, activo) VALUES (?, ?, ?, TRUE)";
 
         try (Connection conn = getConnection();
              PreparedStatement psCampo = conn.prepareStatement(sqlCampo)) {
@@ -48,14 +48,14 @@ public class DAOCampoImp implements DAOCampo {
             if (filas <= 0) return -1;
 
             if (tCampo instanceof TCampoInterior) {
-                String sqlInterior = "INSERT INTO Campo_Interno (id_campo, acondicionado) VALUES (?, ?)";
+                String sqlInterior = "INSERT INTO Campo_Interno (id_campo, acondicionado, activo) VALUES (?, ?, TRUE)";
                 try (PreparedStatement psInterior = conn.prepareStatement(sqlInterior)) {
                     psInterior.setInt(1, idCampo);
                     psInterior.setBoolean(2, ((TCampoInterior) tCampo).getAcondicionado());
                     if (psInterior.executeUpdate() <= 0) return -1;
                 }
             } else if (tCampo instanceof TCampoExterior) {
-                String sqlExterior = "INSERT INTO Campo_Externo (id_campo, clima) VALUES (?, ?)";
+                String sqlExterior = "INSERT INTO Campo_Externo (id_campo, clima, activo) VALUES (?, ?, TRUE)";
                 try (PreparedStatement psExterior = conn.prepareStatement(sqlExterior)) {
                     psExterior.setInt(1, idCampo);
                     psExterior.setString(2, ((TCampoExterior) tCampo).getClima());
@@ -77,9 +77,9 @@ public class DAOCampoImp implements DAOCampo {
 
         String sql = "SELECT c.id_campo, c.ocupado, c.tipo_superficie, ci.acondicionado, ce.clima "
                 + "FROM Campo c "
-                + "LEFT JOIN Campo_Interno ci ON c.id_campo = ci.id_campo "
-                + "LEFT JOIN Campo_Externo ce ON c.id_campo = ce.id_campo "
-                + "WHERE c.id_campo = ?";
+                + "LEFT JOIN Campo_Interno ci ON c.id_campo = ci.id_campo AND ci.activo = TRUE "
+                + "LEFT JOIN Campo_Externo ce ON c.id_campo = ce.id_campo AND ce.activo = TRUE "
+                + "WHERE c.id_campo = ? AND c.activo = TRUE";
 
         try (Connection conn = getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -114,8 +114,9 @@ public class DAOCampoImp implements DAOCampo {
         Collection<TCampo> lista = new ArrayList<>();
         String sql = "SELECT c.id_campo, c.ocupado, c.tipo_superficie, ci.acondicionado, ce.clima "
                 + "FROM Campo c "
-                + "LEFT JOIN Campo_Interno ci ON c.id_campo = ci.id_campo "
-                + "LEFT JOIN Campo_Externo ce ON c.id_campo = ce.id_campo";
+                + "LEFT JOIN Campo_Interno ci ON c.id_campo = ci.id_campo AND ci.activo = TRUE "
+                + "LEFT JOIN Campo_Externo ce ON c.id_campo = ce.id_campo AND ce.activo = TRUE "
+                + "WHERE c.activo = TRUE";
 
         try (Connection conn = getConnection();
              PreparedStatement ps = conn.prepareStatement(sql);
@@ -151,7 +152,7 @@ public class DAOCampoImp implements DAOCampo {
         int idCampo = parseId(tCampo.getID());
         if (idCampo < 0) return -1;
 
-        String sqlCampo = "UPDATE Campo SET ocupado = ?, tipo_superficie = ? WHERE id_campo = ?";
+        String sqlCampo = "UPDATE Campo SET ocupado = ?, tipo_superficie = ? WHERE id_campo = ? AND activo = TRUE";
 
         try (Connection conn = getConnection();
              PreparedStatement psCampo = conn.prepareStatement(sqlCampo)) {
@@ -164,14 +165,14 @@ public class DAOCampoImp implements DAOCampo {
             if (filas <= 0) return -1;
 
             if (tCampo instanceof TCampoInterior) {
-                String sqlInterior = "UPDATE Campo_Interno SET acondicionado = ? WHERE id_campo = ?";
+                String sqlInterior = "UPDATE Campo_Interno SET acondicionado = ? WHERE id_campo = ? AND activo = TRUE";
                 try (PreparedStatement psInterior = conn.prepareStatement(sqlInterior)) {
                     psInterior.setBoolean(1, ((TCampoInterior) tCampo).getAcondicionado());
                     psInterior.setInt(2, idCampo);
                     psInterior.executeUpdate();
                 }
             } else if (tCampo instanceof TCampoExterior) {
-                String sqlExterior = "UPDATE Campo_Externo SET clima = ? WHERE id_campo = ?";
+                String sqlExterior = "UPDATE Campo_Externo SET clima = ? WHERE id_campo = ? AND activo = TRUE";
                 try (PreparedStatement psExterior = conn.prepareStatement(sqlExterior)) {
                     psExterior.setString(1, ((TCampoExterior) tCampo).getClima());
                     psExterior.setInt(2, idCampo);
@@ -192,17 +193,17 @@ public class DAOCampoImp implements DAOCampo {
         if (idCampo < 0) return -1;
 
         try (Connection conn = getConnection()) {
-            try (PreparedStatement psInt = conn.prepareStatement("DELETE FROM Campo_Interno WHERE id_campo = ?")) {
+            try (PreparedStatement psInt = conn.prepareStatement("UPDATE Campo_Interno SET activo = FALSE WHERE id_campo = ?")) {
                 psInt.setInt(1, idCampo);
                 psInt.executeUpdate();
             }
 
-            try (PreparedStatement psExt = conn.prepareStatement("DELETE FROM Campo_Externo WHERE id_campo = ?")) {
+            try (PreparedStatement psExt = conn.prepareStatement("UPDATE Campo_Externo SET activo = FALSE WHERE id_campo = ?")) {
                 psExt.setInt(1, idCampo);
                 psExt.executeUpdate();
             }
 
-            try (PreparedStatement psCampo = conn.prepareStatement("DELETE FROM Campo WHERE id_campo = ?")) {
+            try (PreparedStatement psCampo = conn.prepareStatement("UPDATE Campo SET activo = FALSE WHERE id_campo = ?")) {
                 psCampo.setInt(1, idCampo);
                 return psCampo.executeUpdate() > 0 ? idCampo : -1;
             }
@@ -217,9 +218,10 @@ public class DAOCampoImp implements DAOCampo {
         Collection<TCampo> lista = new ArrayList<>();
         String sql = "SELECT DISTINCT c.id_campo, c.ocupado, c.tipo_superficie, ci.acondicionado, ce.clima "
                 + "FROM Campo c "
-                + "JOIN Encargado_Mantenimiento em ON c.id_campo = em.id_campo "
-                + "LEFT JOIN Campo_Interno ci ON c.id_campo = ci.id_campo "
-                + "LEFT JOIN Campo_Externo ce ON c.id_campo = ce.id_campo";
+                + "JOIN Encargado_Mantenimiento em ON c.id_campo = em.id_campo AND em.activo = TRUE "
+                + "LEFT JOIN Campo_Interno ci ON c.id_campo = ci.id_campo AND ci.activo = TRUE "
+                + "LEFT JOIN Campo_Externo ce ON c.id_campo = ce.id_campo AND ce.activo = TRUE "
+                + "WHERE c.activo = TRUE";
 
         try (Connection conn = getConnection();
              PreparedStatement ps = conn.prepareStatement(sql);
