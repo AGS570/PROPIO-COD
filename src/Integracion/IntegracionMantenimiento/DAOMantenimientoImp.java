@@ -19,7 +19,7 @@ public class DAOMantenimientoImp implements DAOMantenimiento {
     @Override
     public int create(TMantenimiento mantenimiento) {
         int idGenerado = -1;
-        String sql = "INSERT INTO Mantenimiento (id_persona, tipo_mantenimiento) VALUES (?, ?)";
+        String sql = "INSERT INTO Mantenimiento (id_persona, tipo_mantenimiento, activo) VALUES (?, ?, TRUE)";
 
         try (Connection conn = getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -43,9 +43,9 @@ public class DAOMantenimientoImp implements DAOMantenimiento {
 
         String sql = "SELECT p.id_persona, p.dni, p.nombre, p.telefono, e.salario, m.tipo_mantenimiento " +
                 "FROM Persona p " +
-                "JOIN Empleado e ON p.id_persona = e.id_persona " +
-                "JOIN Mantenimiento m ON e.id_persona = m.id_persona " +
-                "WHERE m.id_persona = ?";
+                "JOIN Empleado e ON p.id_persona = e.id_persona AND e.activo = TRUE " +
+                "JOIN Mantenimiento m ON e.id_persona = m.id_persona AND m.activo = TRUE " +
+                "WHERE m.id_persona = ? AND p.activo = TRUE";
 
         try (Connection conn = getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -74,8 +74,9 @@ public class DAOMantenimientoImp implements DAOMantenimiento {
         List<TMantenimiento> lista = new ArrayList<>();
         String sql = "SELECT p.id_persona, p.dni, p.nombre, p.telefono, e.salario, m.tipo_mantenimiento " +
                 "FROM Persona p " +
-                "JOIN Empleado e ON p.id_persona = e.id_persona " +
-                "JOIN Mantenimiento m ON e.id_persona = m.id_persona";
+                "JOIN Empleado e ON p.id_persona = e.id_persona AND e.activo = TRUE " +
+                "JOIN Mantenimiento m ON e.id_persona = m.id_persona AND m.activo = TRUE " +
+                "WHERE p.activo = TRUE";
 
         try (Connection conn = getConnection();
              PreparedStatement ps = conn.prepareStatement(sql);
@@ -100,7 +101,7 @@ public class DAOMantenimientoImp implements DAOMantenimiento {
     @Override
     public boolean update(TMantenimiento mantenimiento) {
         boolean actualizado = false;
-        String sql = "UPDATE Mantenimiento SET tipo_mantenimiento = ? WHERE id_persona = ?";
+        String sql = "UPDATE Mantenimiento SET tipo_mantenimiento = ? WHERE id_persona = ? AND activo = TRUE";
 
         try (Connection conn = getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -119,7 +120,7 @@ public class DAOMantenimientoImp implements DAOMantenimiento {
     @Override
     public boolean delete(int id) {
         boolean borrado = false;
-        String sql = "DELETE FROM Mantenimiento WHERE id_persona = ?";
+        String sql = "UPDATE Mantenimiento SET activo = FALSE WHERE id_persona = ?";
 
         try (Connection conn = getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
